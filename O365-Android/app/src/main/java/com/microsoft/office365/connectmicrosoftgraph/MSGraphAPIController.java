@@ -75,21 +75,26 @@ public class MSGraphAPIController {
             String body,
             String address) {
 
-        //Create List for Addresses (For Multiple Recipients) KB 12/2
-        List<String> addressList;
+
         //Create List for ToRecipientsVO for sending Mail  KB 12/2
         List<ToRecipientsVO> ToRecipientsVOList = new ArrayList<ToRecipientsVO>();
 
-        //Temp VO for Looping through Address List  KB 12/2
-        EmailAddressVO emailAddressVOTemp = new EmailAddressVO();
-        ToRecipientsVO toRecipientsVOItem = new ToRecipientsVO();
+
 
         //If Address string contains multiple emails, create multiple email toRecipientsVOItem
         //Then put them into ToRecipientsVOList  KB 12/2
         if(address.contains(";")){
-            addressList = new ArrayList<String>(Arrays.asList(address.split(";")));
+            address = address.substring(0,address.length()-1);
+            //Create List for Addresses (For Multiple Recipients) KB 12/2
+            List<String> addressList = new ArrayList<String>(Arrays.asList(address.split(";")));
+
+
+
             for(String addressFromList:addressList){
+                //Temp VO for Looping through Address List  KB 12/2
+                EmailAddressVO emailAddressVOTemp = new EmailAddressVO();
                 emailAddressVOTemp.mAddress = addressFromList;
+                ToRecipientsVO toRecipientsVOItem = new ToRecipientsVO();
                 toRecipientsVOItem.emailAddress = emailAddressVOTemp;
                 ToRecipientsVOList.add(toRecipientsVOItem);
             }
@@ -97,6 +102,9 @@ public class MSGraphAPIController {
         //Other wise, create only one toRecipientsVOItem
         //Then put them into ToRecipientsVOList  KB 12/2
         else {
+            //Temp VO for Looping through Address List  KB 12/2
+            EmailAddressVO emailAddressVOTemp = new EmailAddressVO();
+            ToRecipientsVO toRecipientsVOItem = new ToRecipientsVO();
             emailAddressVOTemp.mAddress = address;
             toRecipientsVOItem.emailAddress = emailAddressVOTemp;
             ToRecipientsVOList.add(toRecipientsVOItem);
@@ -105,6 +113,7 @@ public class MSGraphAPIController {
         //To match code signature, convert ArrayList to Array  KB 12/2
         ToRecipientsVO[] ToRecipientsVOArray = new ToRecipientsVO[ToRecipientsVOList.size()];
         ToRecipientsVOArray = ToRecipientsVOList.toArray(ToRecipientsVOArray);
+
 
         BodyVO bodyVO = new BodyVO();
         bodyVO.mContentType = "HTML";
