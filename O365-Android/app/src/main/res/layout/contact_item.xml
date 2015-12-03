@@ -15,6 +15,7 @@
         android:layout_below="@+id/displayNameTextView"
         android:layout_alignBottom="@+id/emailTextView"
         android:layout_alignParentEnd="true"
+         android:layout_alignParentRight="true"
         android:visibility="invisible"
         android:src="@drawable/ic_check"/>
         <TextView
