@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:id="@+id/displayNameTextView"
+        style="@style/largeText"
+        android:layout_marginTop="5dp"/>
+
+    <ImageView
+        android:id="@+id/checkImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/displayNameTextView"
+        android:layout_alignBottom="@+id/emailTextView"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        android:src="@drawable/ic_check"/>
+        <TextView
+            android:id="@+id/nameTextView"
+            style="@style/standardText"
+            android:layout_below="@+id/displayNameTextView"/>
+        <TextView
+            android:id="@+id/emailTextView"
+            style="@style/standardText"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@+id/nameTextView"/>
+    </RelativeLayout>
+
