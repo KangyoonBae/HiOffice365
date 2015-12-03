@@ -202,10 +202,12 @@ public class SendMailActivity extends AppCompatActivity {
                 checkImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
                 if (checkImageView.isShown() == false) {
                     checkImageView.setVisibility(View.VISIBLE);
+                    checkImageView.setTag("SINGLE");
                 } else {
                     checkImageView.setVisibility(View.INVISIBLE);
+                    checkImageView.setTag("");
                 }
-                checkImageView.setTag("SINGLE");
+
             }
         });
 
@@ -245,7 +247,7 @@ public class SendMailActivity extends AppCompatActivity {
                 if(checkImageViewItem.getTag().toString().equalsIgnoreCase("SINGLE")){
                     selectedEmailAddresses.add(addressTextView.getText().toString());
                 }
-                else{
+                else {
                     tempEmailAddition = tempEmailAddition + addressTextView.getText().toString() + ";";
                 }
             }
@@ -349,7 +351,16 @@ public class SendMailActivity extends AppCompatActivity {
         mSendMailButton.setVisibility(View.GONE);
         mSendMailProgressBar.setVisibility(View.VISIBLE);
         mEmailBodyEditText.setText("");
+        mEmailBodyEditText.setHint("Short message goes here");
         selectedEmailAddresses.clear();
+        ListView tempListView = (ListView) findViewById(R.id.contactListview);
+
+        //Reset ListView
+        for (int i = 0; i < tempListView.getCount(); i++) {
+            View tempView = (View)tempListView.getChildAt(i);
+            ImageView checkImageViewItem = (ImageView) tempView.findViewById(R.id.checkImageView);
+            checkImageViewItem.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void showSendMailSuccessUI(String sentAddress) {
@@ -361,15 +372,7 @@ public class SendMailActivity extends AppCompatActivity {
                  + sentAddress,
                 Toast.LENGTH_SHORT).show();
 
-        ListView tempListView = (ListView) findViewById(R.id.contactListview);
 
-        //Reset ListView
-        for (int i = 0; i < tempListView.getCount(); i++) {
-            View tempView = (View)tempListView.getChildAt(i);
-            ImageView checkImageViewItem = (ImageView) tempView.findViewById(R.id.checkImageView);
-            checkImageViewItem.setVisibility(View.INVISIBLE);
-        }
-        selectedEmailAddresses.clear();
 
     }
 
